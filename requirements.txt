@@ -1,0 +1,5 @@
+pytorch-lightning
+torchmetrics
+wandb
+loguru
+segmentation-models-pytorch

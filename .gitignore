@@ -1,0 +1,22 @@
+# Python Cache
+__pycache__/
+
+# Saved Models
+*.tar
+*.pth
+*.pwf
+
+# Training logs
+lightning_logs/
+wandb/
+monza-track/
+
+# Saved Models
+saved_models/
+
+# Saved Visuals
+visuals/
+
+.DS_Store
+*.egg-info/
+default.profraw

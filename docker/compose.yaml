@@ -1,0 +1,23 @@
+services:
+  ac-segmentation:
+    build:
+      context: ..
+      dockerfile: ./docker/dockerfile
+    image: ac-train-segmentation
+    container_name: ac-segmentation
+    shm_size: 80G
+    user: ${USER_ID}:${GROUP_ID}
+    tty: true
+    environment:
+      - WANDB_API_KEY=${WANDB_API_KEY}
+      - TORCH_HOME=/workspace/.cache/torch
+    volumes:
+      - /mnt/data:/data
+    command: bash -c "python /workspace/src/acseg/train.py \ --entity aiml-l2r \ --project-name ac-segmentation \ --run-name yas_marina-fpn-resent-18-v1.2 \ --dataset-name monza \ --dataset-dir /data/aarc/segmentation/yas_marina/ \ --decoder fpn \ --encoder resnet18 \ --imagenet \ --batch-size 64 \ --val-batch-size 32 \ --val-interval 1 \ --lr 0.03 \ --step-lr-every-n-steps 300 \ --lr-step-factor 0.1 \ --decay 1e-5 \ --momentum 0.9 \ --n-epochs 451 \ --precision 16 \ --gpus "-1""
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 2
+              capabilities: [ gpu ]

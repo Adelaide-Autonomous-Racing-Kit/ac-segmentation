@@ -1,0 +1,8 @@
+FROM nvcr.io/nvidia/pytorch:23.10-py3
+
+RUN apt-get update && apt-get install git ca-certificates  -y
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY setup.py .
+COPY src src
+RUN pip install -e .
