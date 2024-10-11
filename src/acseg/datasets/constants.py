@@ -6,7 +6,7 @@ from typing import List, Tuple, Union
 class ClassInformation:
     name: str
     train_id: int
-    colour: Tuple[int]
+    colour: Tuple[int, int, int]
 
 
 MONZA_SEG_CLASSES = [
@@ -37,7 +37,7 @@ class DatasetInformation:
 DATASET_INFO = {
     "monza": DatasetInformation(
         10,
-        [736, 1280],
+        (736, 1280),
         -100,
         MONZA_SEG_CLASSES,
         None,

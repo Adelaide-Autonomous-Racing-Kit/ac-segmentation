@@ -1,7 +1,7 @@
 import argparse
 
 from acseg.datasets import segmentation
-from acseg.datasets.augmentation.resize_normalise import ResizeNormalise
+from acseg.datasets.augmentation.resize_normalise import Augmentor, ResizeNormalise
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 
@@ -15,7 +15,7 @@ class SegmentationDataModule(pl.LightningDataModule):
         hparams = self.hparams["args"]
         train_dataset = segmentation.build_dataset(
             hparams,
-            transform=ResizeNormalise(hparams),
+            transform=Augmentor(hparams),
         )
         return DataLoader(
             train_dataset,
