@@ -133,6 +133,12 @@ def get_training_arguments() -> argparse.Namespace:
     parser.add_argument("--run-name", type=str, help="Name used to log the run")
     # Logging
     parser.add_argument(
+        "--wandb-dir",
+        type=str,
+        default="./wandb",
+        help="Directory for W&B to write to",
+    )
+    parser.add_argument(
         "--log-every-n-steps",
         type=int,
         default=10,

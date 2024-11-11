@@ -36,14 +36,14 @@ class Augmentor:
     def __init__(self, args: argparse.ArgumentParser):
         self._resize_and_normalise = ResizeNormalise(args)
         input_transforms = [
-            transforms.ColorJitter(0.3, 0.3, 0.3, 0.3),
-            transforms.RandomGrayscale(0.1),
+            transforms.ColorJitter(0.2, 0.2, 0.2, 0.2),
+            transforms.RandomGrayscale(0.2),
         ]
         self._input_transforms = transforms.Compose(input_transforms)
         self._p_horizontal_flip = 0.5
         self._shared_transforms = [
             (
-                transforms.RandomRotation(15.0),
+                transforms.RandomRotation(10.0),
                 transforms.functional.rotate,
             )
         ]
