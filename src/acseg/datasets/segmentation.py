@@ -2,11 +2,13 @@ import argparse
 from pathlib import Path
 from typing import List
 
-from PIL import Image
-from acseg.datasets.constants import DATASET_INFO, DatasetInformation
+import numpy as np
 import torch
-from torch.utils.data import Dataset
 import torchvision
+from PIL import Image
+from torch.utils.data import Dataset
+
+from acseg.datasets.constants import DATASET_INFO, DatasetInformation
 
 
 def get_dataset_information(dataset_name: str) -> DatasetInformation:
@@ -43,6 +45,7 @@ class CustomDataset(Dataset):
         image_path, target_path = self._sample_filepaths[self._stage][idx]
         image, target = Image.open(image_path), Image.open(target_path)
         image = self._maybe_convert_grey_image(image)
+        image, target = np.array(image), np.array(target)
         image, target = self._apply_transforms(image, target)
         return image, target
 
@@ -110,7 +113,6 @@ class MonzaDataset(CustomDataset):
         return file_pairs
 
     def _encode_target(self, target: torch.Tensor) -> torch.LongTensor:
-        target = target * 255
         target = target.long()
         target = target + 1
         target[target > 9] = 0

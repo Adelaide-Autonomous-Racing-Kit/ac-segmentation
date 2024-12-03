@@ -1,7 +1,7 @@
 import argparse
 
 from acseg.datasets import segmentation
-from acseg.datasets.augmentation.resize_normalise import Augmentor, ResizeNormalise
+from acseg.datasets.augmentation import Augmentor, ResizeNormalise
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 
@@ -23,6 +23,9 @@ class SegmentationDataModule(pl.LightningDataModule):
             num_workers=hparams.n_workers,
             shuffle=True,
             drop_last=True,
+            pin_memory=True,
+            persistent_workers=True,
+            prefetch_factor=4,
         )
 
     def val_dataloader(self) -> DataLoader:
@@ -36,6 +39,7 @@ class SegmentationDataModule(pl.LightningDataModule):
             val_dataset,
             batch_size=hparams.val_batch_size,
             num_workers=hparams.n_workers,
+            persistent_workers=True,
         )
 
     def test_dataloader(self) -> DataLoader:
@@ -49,4 +53,5 @@ class SegmentationDataModule(pl.LightningDataModule):
             val_dataset,
             batch_size=hparams.val_batch_size,
             num_workers=hparams.n_workers,
+            persistent_workers=True,
         )
