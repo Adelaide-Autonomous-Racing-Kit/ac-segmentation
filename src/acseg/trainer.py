@@ -48,6 +48,7 @@ class SegmentationTrainer(pl.LightningModule):
         self._setup_class_labels()
         self.validation_outputs = []
         self.test_outputs = []
+        self._previous_epoch = -1
 
     def _setup_evaluation_metric(self):
         self._eval_metric = MulticlassJaccardIndex(

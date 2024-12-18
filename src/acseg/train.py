@@ -16,7 +16,7 @@ def main():
     wandb_logger = WandbLogger(
         project=args.project_name,
         name=args.run_name,
-        log_model="best",
+        log_model=True,
         save_dir=args.wandb_dir,
         entity=args.entity,
     )

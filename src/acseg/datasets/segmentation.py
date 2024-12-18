@@ -26,6 +26,7 @@ def build_dataset(
         train_transform=transform,
         val_transform=transform,
     )
+    dataset.set_stage(image_set)
     return dataset
 
 
@@ -47,6 +48,7 @@ class CustomDataset(Dataset):
         image = self._maybe_convert_grey_image(image)
         image, target = np.array(image), np.array(target)
         image, target = self._apply_transforms(image, target)
+        image /= 255.0
         return image, target
 
     def _maybe_convert_grey_image(self, image: Image) -> Image:
